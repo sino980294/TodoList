@@ -66,4 +66,4 @@ const requestListener = (req,res)=>{
 
     })
 }
-server.listen(proccess.env.port || 3005);
+server.listen(process.env.port || 3005);
