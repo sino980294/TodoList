@@ -4,4 +4,4 @@ const headers = {
     'Access-Control-Allow-Methods': 'PATCH, POST, GET,OPTIONS,DELETE',
    'Content-Type': 'application/json'
  }
- module.exports(headers)
+ module.exports = headers;

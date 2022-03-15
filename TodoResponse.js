@@ -4,4 +4,4 @@ function ErrorResponse(res,data,message){
     res.write(JSON.stringify({data:data,message:message}));
     res.end();
 }
-module.exports(responseTodo)
+module.exports =ErrorResponse;

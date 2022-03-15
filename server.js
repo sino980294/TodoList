@@ -4,12 +4,13 @@ const responseTodo = require('./TodoResponse');
 const ErrorResponse = require('./ErrorResponse');
 const headers = require("./Headers")
 let data = [];
-const server = http.createServer(requestListener)
-let body = '';
 const requestListener = (req,res)=>{
+    let body = '';
+    console.log(data)
     req.on('data',chunk=>{
         body += chunk;
     })
+    console.log(data)
     req.on('end',()=>{
         if(req.url === '/Todo' && req.method === 'GET'){
             responseTodo(res,data,"成功取得列表");
@@ -61,9 +62,7 @@ const requestListener = (req,res)=>{
         }else{
             ErrorResponse(res,"無此路由請重新輸入路徑",404);
         }
-
-
-
     })
 }
-server.listen(process.env.port || 3005);
+const server = http.createServer(requestListener);
+server.listen(3007);
