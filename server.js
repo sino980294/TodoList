@@ -28,10 +28,10 @@ const requestListener = (req,res)=>{
             }catch{
                 ErrorResponse(res,"找不到該Todo");
             }          
-        }else if(req.url.startsWith('/Todo/') && req.method === 'POST'){
-            try{               
+        }else if(req.url === '/Todo' && req.method === 'POST'){
+            try{  
                 const title = JSON.parse(body).title;
-                if(title == undefined){
+                if(title !== undefined){                   
                     data.push({title:title,id:uuidv4()}) ;
                     responseTodo(res,data,"新增成功");
                 }else{
@@ -45,14 +45,14 @@ const requestListener = (req,res)=>{
                 const title = JSON.parse(body).title;
                 const id = req.url.split('/').pop();
                 const index = data.findIndex(x=>x.id === id);
-                if(title == undefined || index === -1){
-                    data[id].title = title;
+                if(title !== undefined && index !== -1){
+                    data[index].title = title;
                     responseTodo(res,data,"修改成功");
                 }else{
                     ErrorResponse(res,"填寫格式錯誤或找不到該Todo");
                 }
             }catch{
-                ErrorResponse(res,"填寫格式錯誤");
+                ErrorResponse(res,"填寫格式錯誤或找不到該Todo");
             }    
         }else if(req.method === 'OPTION'){
             res.writeHead(200,headers);
