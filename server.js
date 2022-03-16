@@ -5,19 +5,17 @@ const ErrorResponse = require('./ErrorResponse');
 const headers = require("./Headers")
 let data = [];
 const requestListener = (req,res)=>{
-    let body = '';
-    console.log(data)
+    let body = '';   
     req.on('data',chunk=>{
         body += chunk;
-    })
-    console.log(data)
+    })    
     req.on('end',()=>{
         if(req.url === '/Todo' && req.method === 'GET'){
             responseTodo(res,data,"成功取得列表");
         }else if(req.url === '/Todo' && req.method === 'DELETE'){
             data.length = 0;
             responseTodo(res,data,"刪除成功");
-        }else if(req.url.startWith('/Todo/') && req.method === 'DELETE'){
+        }else if(req.url.startsWith('/Todo/') && req.method === 'DELETE'){
             try{
                 const id = req.url.split('/').pop();
                 const index = data.findIndex(x=>x.id === id);
@@ -30,7 +28,7 @@ const requestListener = (req,res)=>{
             }catch{
                 ErrorResponse(res,"找不到該Todo");
             }          
-        }else if(req.url.startWith('/Todo/') && req.method === 'POST'){
+        }else if(req.url.startsWith('/Todo/') && req.method === 'POST'){
             try{               
                 const title = JSON.parse(body).title;
                 if(title == undefined){
@@ -42,7 +40,7 @@ const requestListener = (req,res)=>{
             }catch{
                 ErrorResponse(res,"填寫格式錯誤");
             }    
-        }else if(req.url.startWith('/Todo/') && req.method === 'PATCH'){
+        }else if(req.url.startsWith('/Todo/') && req.method === 'PATCH'){
             try{               
                 const title = JSON.parse(body).title;
                 const id = req.url.split('/').pop();
